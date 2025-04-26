@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculator App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: ivory;
+    }
+
+    .calculator {
+      background: lightslategrey;
+      width: 90%;
+      max-width: 250px;
+      border-radius: 10px 10px 40px 40px;
+      box-shadow: 0 4px 10px aquamarine;
+      padding: 15px;
+    }
+
+    .calculator h6 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .display {
+      margin-bottom: 20px;
+      border: 2px solid aqua;
+      border-radius: 8px;
+      
+    }
+
+    .display input {
+      width: 100%;
+      height: 70px;
+      border: none;
+      outline: none;
+      color: aqua;
+      border-radius: 5px;
+      background: black;
+      font-size: 1.5em;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      height: 50px;
+      border: none;
+      border-radius: 20px;
+      font-size: 18px;
+      background: #000;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: black;
+      color: aqua;
+      font-size: 20px;
+      box-shadow: 2px 2px 5px green;
+    }
+
+    button:active {
+      background: lightgreen;
+      color: black;
+    }
+
+    .clear {
+      grid-column: span 2;
+      background-color: red;
+      color: aqua;
+    }
+
+    .copy {
+      grid-column: span 2;
+      background-color: green;
+    }
+
+  
+
+    @media (max-width: 400px) {
+      .calculator {
+        padding: 15px;
+      }
+
+      .display input {
+        font-size: 1.2em;
+      }
+
+      button {
+        font-size: 16px;
+        height: 45px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h6>
+      <i style="font-size: 15px; text-decoration: underline;">John</i>
+      <em style="color: aqua; background: black; border-radius:15px; padding:5px">Mark</em>
+    </h6>
+
+    <div class="display">
+      <input type="text" placeholder="Enter numbers..." id="result" readonly>
+    </div>
+
+    <div class="buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('/')">÷</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('*')">×</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('-')">-</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="append('+')">+</button>
+
+      <button class="clear" onclick="clearResult()">CLR</button>
+      <button class="copy" onclick="copyResult()">COPY</button>
+    </div>
+  </div>
+
+  <script>
+    const result = document.getElementById('result');
+
+    function append(value) {
+      result.value += value;
+    }
+
+    function calculate() {
+      try {
+        result.value = eval(result.value);
+      } catch (error) {
+        result.value = 'Invalid!';
+      }
+    }
+
+    function clearResult() {
+      result.value = 'Clearing...';
+      setTimeout(() => result.value = "", 500);
+    }
+
+    function copyResult() {
+      navigator.clipboard.writeText(result.value)
+        .then(() => {
+          result.value = "Copied!";
+          setTimeout(() => result.value = "", 800);
+        });
+    }
+  </script>
+</body>
+</html>
